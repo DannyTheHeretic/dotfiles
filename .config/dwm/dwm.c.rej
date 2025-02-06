@@ -1,0 +1,119 @@
+--- dwm.c
++++ dwm.c
+@@ -57,12 +57,27 @@
+ #define TAGMASK                 ((1 << LENGTH(tags)) - 1)
+ #define TEXTW(X)                (drw_fontset_getwidth(drw, (X)) + lrpad)
+ 
++#define SYSTEM_TRAY_REQUEST_DOCK    0
++/* XEMBED messages */
++#define XEMBED_EMBEDDED_NOTIFY      0
++#define XEMBED_WINDOW_ACTIVATE      1
++#define XEMBED_FOCUS_IN             4
++#define XEMBED_MODALITY_ON         10
++#define XEMBED_MAPPED              (1 << 0)
++#define XEMBED_WINDOW_ACTIVATE      1
++#define XEMBED_WINDOW_DEACTIVATE    2
++#define VERSION_MAJOR               0
++#define VERSION_MINOR               0
++#define XEMBED_EMBEDDED_VERSION (VERSION_MAJOR << 16) | VERSION_MINOR
++
+ /* enums */
+ enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
+ enum { SchemeNorm, SchemeSel }; /* color schemes */
+ enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
++       NetSystemTray, NetSystemTrayOP, NetSystemTrayOrientation, NetSystemTrayOrientationHorz,
+        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
+        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
++enum { Manager, Xembed, XembedInfo, XLast }; /* Xembed atoms */
+ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
+ enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+        ClkClientWin, ClkRootWin, ClkLast }; /* clicks */
+@@ -178,6 +199,7 @@ static void focusstack(const Arg *arg);
+ static Atom getatomprop(Client *c, Atom prop);
+ static int getrootptr(int *x, int *y);
+ static long getstate(Window w);
++static unsigned int getsystraywidth();
+ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
+ static void grabbuttons(Client *c, int focused);
+ static void grabkeys(void);
+@@ -195,13 +217,16 @@ static void pop(Client *c);
+ static void propertynotify(XEvent *e);
+ static void quit(const Arg *arg);
+ static Monitor *recttomon(int x, int y, int w, int h);
++static void removesystrayicon(Client *i);
+ static void resize(Client *c, int x, int y, int w, int h, int interact);
++static void resizebarwin(Monitor *m);
+ static void resizeclient(Client *c, int x, int y, int w, int h);
+ static void resizemouse(const Arg *arg);
++static void resizerequest(XEvent *e);
+ static void restack(Monitor *m);
+ static void run(void);
+ static void scan(void);
+-static int sendevent(Client *c, Atom proto);
++static int sendevent(Window w, Atom proto, int m, long d0, long d1, long d2, long d3, long d4);
+ static void sendmon(Client *c, Monitor *m);
+ static void setclientstate(Client *c, long state);
+ static void setfocus(Client *c);
+@@ -454,7 +486,7 @@ buttonpress(XEvent *e)
+ 			arg.ui = 1 << i;
+ 		} else if (ev->x < x + TEXTW(selmon->ltsymbol))
+ 			click = ClkLtSymbol;
+-		else if (ev->x > selmon->ww - (int)TEXTW(stext))
++		else if (ev->x > selmon->ww - (int)TEXTW(stext) - getsystraywidth())
+ 			click = ClkStatusText;
+ 		else
+ 			click = ClkWinTitle;
+@@ -781,13 +874,17 @@ drawbar(Monitor *m)
+ 	if (!m->showbar)
+ 		return;
+ 
++	if(showsystray && m == systraytomon(m) && !systrayonleft)
++		stw = getsystraywidth();
++
+ 	/* draw status first so it can be overdrawn by tags later */
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+-		tw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		drw_text(drw, m->ww - tw, 0, tw, bh, 0, stext, 0);
++		tw = TEXTW(stext) - lrpad / 2 + 2; /* 2px extra right padding */
++		drw_text(drw, m->ww - tw - stw, 0, tw, bh, lrpad / 2 - 2, stext, 0);
+ 	}
+ 
++	resizebarwin(m);
+ 	for (c = m->clients; c; c = c->next) {
+ 		occ |= c->tags;
+ 		if (c->isurgent)
+@@ -946,14 +1046,32 @@ getatomprop(Client *c, Atom prop)
+ 	unsigned char *p = NULL;
+ 	Atom da, atom = None;
+ 
+-	if (XGetWindowProperty(dpy, c->win, prop, 0L, sizeof atom, False, XA_ATOM,
++	/* FIXME getatomprop should return the number of items and a pointer to
++	 * the stored data instead of this workaround */
++	Atom req = XA_ATOM;
++	if (prop == xatom[XembedInfo])
++		req = xatom[XembedInfo];
++
++	if (XGetWindowProperty(dpy, c->win, prop, 0L, sizeof atom, False, req,
+ 		&da, &di, &dl, &dl, &p) == Success && p) {
+ 		atom = *(Atom *)p;
++		if (da == xatom[XembedInfo] && dl == 2)
++			atom = ((Atom *)p)[1];
+ 		XFree(p);
+ 	}
+ 	return atom;
+ }
+ 
++unsigned int
++getsystraywidth()
++{
++	unsigned int w = 0;
++	Client *i;
++	if(showsystray)
++		for(i = systray->icons; i; w += i->w + systrayspacing, i = i->next) ;
++	return w ? w + systrayspacing : 1;
++}
++
+ int
+ getrootptr(int *x, int *y)
+ {
