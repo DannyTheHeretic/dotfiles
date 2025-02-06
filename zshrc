@@ -4,7 +4,7 @@ if [[ ":$FPATH:" != *":$HOME/completions:"* ]]; then export FPATH="$HOME/complet
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="$HOME/.config/.oh-my-zsh"
 export PATH="$PATH:$HOME/.pyenv/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 # Set name of the theme to load --- if set to "random", it will
