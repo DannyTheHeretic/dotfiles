@@ -6,7 +6,7 @@
 !.gitconfig
 !.gitignore
 !.config/
-!.config/.oh-my-zsh/
+!.config/.oh-my-zsh
 !.config/.oh-my-zsh/*
 !.config/dwm
 !.config/dwm/*
