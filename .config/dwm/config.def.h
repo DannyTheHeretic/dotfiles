@@ -32,21 +32,20 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "󰚺", "" };
+static const char *tags[] = { "", "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class	instance	title			tags mask   isfloating   monitor */
-  	{ NULL, 	NULL, 		"btop", 		1 << 0, 	0, 	-1 },
   	{ "Alacritty",	"Alacritty",	"Alacritty",		1 << 1,		0,	-1 },
-	{ "firefox",  	"Navigator",	NULL,			1 << 2,		0,	-1 },
-	{ "Code",  	"code",		NULL,			1 << 3,		0,	-1 },
-	{ "obsidian",	"obsidian",	NULL,			1 << 4,		0,	-1 },
-	{ "discord",    "discord",	NULL,			1 << 5,		0,	-1 },
-	{ "Plexamp",  	"plexamp",	NULL,			1 << 6,		1,	-1 },
-	{ "steamwebhelper",  	"steam",NULL,			1 << 7,		0,	-1 },
+  	{ "firefox",  	"Navigator",	NULL,			1 << 2,		0,	-1 },
+	  { "Code",  	"code",		NULL,			1 << 3,		0,	-1 },
+	  { "obsidian",	"obsidian",	NULL,			1 << 0,		0,	-1 },
+	  { "discord",    "discord",	NULL,			1 << 0,		0,	-1 },
+	  { "Plexamp",  	"plexamp",	NULL,			1 << 0,		1,	-1 },
+	  { "steamwebhelper",  	"steam",NULL,			1 << 5,		0,	-1 },
 };
 
 /* layout(s) */
