@@ -1,7 +1,7 @@
 
 *
 
-!./config/starship.toml
+!/.config/starship.toml
 !.zshrc
 !dwm.sh
 !.gitconfig
