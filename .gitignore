@@ -1,7 +1,6 @@
 
 *
 
-!/.config/starship.toml
 !.zshrc
 !dwm.sh
 !.gitconfig
@@ -13,9 +12,11 @@
 !.config/dwm/*
 !.config/dwmblocks
 !.config/dwmblocks/*
+!.config/starship.toml
 !.config/alacritty
 !.config/alacritty/alacritty.toml
 !.config/alacritty/themes/tokyo_night.toml
 !.config/alacritty/themes/tokyo_night_enhanced.toml
 !.config/nvim
 !.config/nvim/*
+
