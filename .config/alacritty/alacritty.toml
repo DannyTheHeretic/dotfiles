@@ -1,4 +1,12 @@
 [general]
 import = ["~/.config/alacritty/themes/tokyo_night.toml"]
+[font]
+normal = { family = "Hack", style = "Regular" }
+size = 14
+
+[colors.primary]
+foreground = '#0fffff'
+background = '#f3f3f3'
+
 [window]
-opacity = 0.3
+opacity = 0.12

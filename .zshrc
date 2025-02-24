@@ -15,7 +15,7 @@ export EDITOR='code'
 export PATH="$PATH:$HOME/Development/flutter/bin"
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/usr/local/cuda-12.6/bin"
-ZSH_THEME="passion" # "intheloop"
+ZSH_THEME="intheloop"
 export PATH="$PATH:/usr/local/go/bin"
 export FZF_BASE=/usr/bin
 DISABLE_FZF_AUTO_COMPLETION="true"
@@ -139,5 +139,4 @@ alias cls="clear"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #export PYENV_ROOT="$HOME/.pyenv"
 #export RUST=$HOME/.cargo/bin[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-
 eval "$(starship init zsh)"
