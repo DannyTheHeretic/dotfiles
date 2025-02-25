@@ -1,8 +1,7 @@
 
 format = """
 [░▒▓](#a3aed2)\
-[󰣇 ](bg:#a3aed2 fg:#090c0c)\
-[](bg:#769ff0 fg:#a3aed2)\
+[󰣇 ](bg:#a3aed2 fg:#394260)\
 $directory\
 [▓▒░](bg:#394260 fg:#769ff0)\
 $git_branch\
@@ -12,9 +11,10 @@ $time\
 [▓▒░](fg:#1d2230)\
 \n$character"""
 
+
+#(bg:#1d2230 fg:#394260)
 right_format = """
-[░▒](fg:#1d2230)\
-[▓](bg:#1d2230 fg:#394260)\
+[░▒▓](fg:#394260)\    
 $c\
 $dart\
 $deno\
@@ -39,10 +39,10 @@ $crystal\
 $custom\
 $status\
 $os\
-[░▒▓](bg:#769ff0 fg:#a3aed2)\
+[░▒](bg:#769ff0 fg:#a3aed2)\
 $battery\
 $sudo\
-[▓▒░](#a3aed2)"""
+[▓▒░](#a3aed2)""" # [▓▒░](fg:#1d2230)\format = """
 
 
 [sudo]
