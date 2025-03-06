@@ -38,14 +38,15 @@ static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class	instance	title			tags mask   isfloating   monitor */
-  	{ "Alacritty",	"Alacritty",	"Alacritty",		1 << 1,		0,	-1 },
-  	{ "firefox",  	"Navigator",	NULL,			1 << 2,		0,	-1 },
-	  { "Code",  	"code",		NULL,			1 << 3,		0,	-1 },
-	  { "obsidian",	"obsidian",	NULL,			1 << 0,		0,	-1 },
-	  { "discord",    "discord",	NULL,			1 << 0,		0,	-1 },
-	  { "Plexamp",  	"plexamp",	NULL,			1 << 0,		1,	-1 },
-	  { "steamwebhelper",  	"steam",NULL,			1 << 5,		0,	-1 },
+	/*  class              instance	      title			      tag     float monitor */
+  	{ "Alacritty",	      "Alacritty",	"Alacritty",		1 << 1,		0,	-1 },
+  	{ "firefox",  	      "Navigator",	NULL,			      1 << 2,		0,	-1 },
+	  { "Code",  	          "code",		    NULL,			      1 << 3,		0,	-1 },
+	  { "obsidian",       	"obsidian", 	NULL,			      1 << 0,		0,	-1 },
+	  { "discord",          "discord",  	NULL,			      1 << 0,		0,	-1 },
+	  { "Plexamp",  	      "plexamp",  	NULL,			      1 << 0,		1,	-1 },
+	  { "steamwebhelper",  	"steam",      NULL,			      1 << 5,		0,	-1 },
+    { "Thunar",            NULL,        NULL,           1 << 0,   0,  -1 },
 };
 
 /* layout(s) */
@@ -82,6 +83,7 @@ static const char *firefox[]  = { "firefox", NULL };
 static const char *rofi[]     = { "rofi", "-show", "drun", "-show-icons", NULL };
 static const char *obi[]      = { "md.obsidian.Obsidian", NULL };
 static const char *termcmd[]  = { "alacritty", NULL };
+static const char *files[]    = { "thunar", NULL };
 static const char *brightness[2][3] = {
 	{"brightnessctl", "set", "5%+"},
 	{"brightnessctl", "set", "5%-"}
@@ -99,7 +101,8 @@ static const Key keys[] = {
 	{ MODKEY,			XK_f,				spawn,		{.v = firefox } }, // spawn firefox
 	{ MODKEY,			XK_p,				spawn,		{.v = rofi } }, // spawn rofi
 	{ MODKEY,			XK_n,				spawn,		{.v = obi } },
-	{ MODKEY,			XK_Return,			spawn,		{.v = termcmd } }, // spawn terminal
+	{ MODKEY,			XK_Return,	spawn,		{.v = termcmd } }, // spawn terminal
+  { MODKEY,     XK_e,       spawn,    {.v = files} },
 	{ MODKEY,			XK_b,				togglebar,	{0} },
 	{ MODKEY,			XK_j,				focusstack,	{.i = +1 } },
 	{ MODKEY,			XK_k,				focusstack,	{.i = -1 } },

@@ -2,5 +2,6 @@ nm-applet &
 pasystray &
 dwmblocks &
 picom &
-feh --bg-scale ~/background/.
+~/.fehbg &
+thunar --daemon &
 exec dwm
