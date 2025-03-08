@@ -47,6 +47,7 @@ static const Rule rules[] = {
 	  { "Plexamp",  	      "plexamp",  	NULL,			      1 << 0,		1,	-1 },
 	  { "steamwebhelper",  	"steam",      NULL,			      1 << 5,		0,	-1 },
     { "Thunar",            NULL,        NULL,           1 << 0,   0,  -1 },
+    { "Blueman-manager",   NULL,        NULL,           1 << 0,   0,  -1 },
 };
 
 /* layout(s) */
