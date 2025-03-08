@@ -1,4 +1,5 @@
 nm-applet &
+blueman-applet &
 pasystray &
 dwmblocks &
 picom &
