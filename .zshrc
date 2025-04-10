@@ -3,7 +3,16 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Path to your Oh My Zsh installation.
+# Load pyenv automatically by appending
+# the following to 
+# ~/.zprofile (for login shells)
+# and ~/.zshrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# Restart your shell for the changes to take effect.# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.config/.oh-my-zsh"
 export PATH="$PATH:$HOME/.pyenv/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
