@@ -1,7 +1,7 @@
 [general]
 import = ["~/.config/alacritty/themes/tokyo_night.toml"]
 [font]
-normal = { family = "Hack", style = "Regular" }
+normal = { family = "IosevkaTermNerdFont", style = "Regular" }
 size = 14
 
 [colors.primary]
