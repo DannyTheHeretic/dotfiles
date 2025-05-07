@@ -149,3 +149,7 @@ alias cls="clear"
 #export PYENV_ROOT="$HOME/.pyenv"
 #export RUST=$HOME/.cargo/bin[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(starship init zsh)"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
